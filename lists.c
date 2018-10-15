@@ -46,14 +46,14 @@ struct song_node * insert_front(struct song_node *n, char name[100], char artist
 
 
 int main(){
-  struct song_node *head = malloc(_SIZE);  
-  struct song_node *n1 = malloc(_SIZE);
+  struct song_node *head = malloc(SIZE);  
+  struct song_node *n1 = malloc(SIZE);
 
-  head -> name = "bruh";
-  head -> artist ="jayz";
+  strcpy( head -> name , "a" );
+  strcpy( head ->artist , "bb");
   head -> next =  n1;
-  n1 -> name = "hella";
-  n1 -> artist = "adele";
+  strcpy( n1 -> name , "ab" );
+  strcpy( n1 -> artist , "bbc");
   n1 -> next = NULL;
 
   printf("---Testing print_list---\n");
@@ -61,7 +61,7 @@ int main(){
 
   printf("---Testing insert_front---\n");
   printf("After adding node at the front: \n");
-  print_list(insert_front(head, 5));
+  print_list(insert_front(head, "HI", "THERE"));
 
   return 0;
 }
