@@ -67,7 +67,6 @@ struct song_node * find_song(struct song_node *n, char * artist) {
 struct song_node * random_node(struct song_node *n) {
   int random_index = rand() % length(n);
   int num = 0;
-//printf("num: %d\n", random_index);
   while(n != NULL && num < random_index) {
     n = n -> next;
     num++;
@@ -75,6 +74,55 @@ struct song_node * random_node(struct song_node *n) {
   return n;
 }
 
+struct song_node * remove (struct song_node *n, char * name, char * artist ){
+  struct song_node * previous = NULL;
+  struct song_node * head = n;
+  while (n){
+    if (strcmp(n -> name, name) == 0 && strcmp (n -> artist, artist) == 0){
+      if (previous == NULL){ //first node
+	free(head);
+	return n -> next;
+      }
+      else if (n -> next == NULL){ //last node
+	previous -> next == NULL;
+	free (n);
+	return head;
+      }
+    }
+  }
+  return head;
+}
+
+  
+  
+  
+/* // remove a single specified node from the list */
+/* struct song_node * remove_node(struct song_node *node_pointer, char * song, char * artist){ */
+
+/*   while (current_pointer != NULL){ */
+/*     // search for a matching node */
+/*     if(strcmp(current_pointer -> song, song) == 0 && strcmp(current_pointer -> artist, artist) == 0) { */
+/*       // if the first node is being removed */
+/*       if (previous_pointer == NULL) { */
+/*         free(current_pointer); */
+/*         return node_pointer -> next; */
+/*       } */
+/*       // if the last node is being removed */
+/*       if (!current_pointer -> next){ */
+/*         previous_pointer -> next = NULL; */
+/*         free(current_pointer); */
+/*         return node_pointer; */
+/*       } */
+/*       // general case */
+/*       previous_pointer -> next = current_pointer -> next; */
+/*       free(current_pointer); */
+/*       return node_pointer; */
+/*     } */
+/*     previous_pointer = current_pointer; */
+/*     current_pointer = current_pointer -> next; */
+/*   } */
+/*   return node_pointer; */
+/* } */
 // struct song_node * insert_order(struct song_node *n, char name[100], char artist[100]){
 //   struct song_node *node = malloc(SIZE);
 
@@ -93,6 +141,7 @@ struct song_node * random_node(struct song_node *n) {
 
 
 int main(){
+  // srand();
   struct song_node *head = malloc(SIZE);  
   struct song_node *n1 = malloc(SIZE);
 
