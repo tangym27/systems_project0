@@ -4,7 +4,7 @@
 
 //struct node { int i; struct node *next; };
 
-struct song_node{ 
+struct song_node{
   char name[100];
   char artist[100];
   struct song_node *next;
@@ -30,7 +30,7 @@ struct song_node * insert_front(struct song_node *n, char name[100], char artist
   strcpy( head -> name , name );
   strcpy( head ->artist , artist);
   head -> next = n;
-  return head;  
+  return head;
 }
 
 int length(struct song_node *n) {
@@ -74,7 +74,7 @@ struct song_node * random_node(struct song_node *n) {
   return n;
 }
 
-struct song_node * remove (struct song_node *n, char * name, char * artist ){
+struct song_node * remove_node (struct song_node *n, char * name, char * artist ){
   struct song_node * previous = NULL;
   struct song_node * head = n;
   while (n){
@@ -93,10 +93,23 @@ struct song_node * remove (struct song_node *n, char * name, char * artist ){
   return head;
 }
 
-  
-
-  
-
+struct song_node * order_alpha (struct song_node *n, struct song_node *begin){
+  struct song_node *temp = begin;
+  struct song_node *previous = NULL;
+  while (strcmp(n-> artist, temp-> artist) >0){
+    previous = temp;
+    temp = temp ->next;
+    }
+  if  (strcmp(n->artist, temp->artist) ==0){
+    while (strcmp(n->name, temp->name)>0){
+      previous = temp;
+      temp= temp ->next;
+    }
+  }
+  previous->next = n;
+  n->next = temp;
+  return begin;
+}
 /* struct node * free_list(struct song_node *n) { */
 /*   struct song_node *holder = n; */
 /*   struct song_node *pos = n; */
@@ -111,15 +124,19 @@ struct song_node * remove (struct song_node *n, char * name, char * artist ){
 
 int main(){
   // srand();
-  struct song_node *head = malloc(SIZE);  
+  struct song_node *head = malloc(SIZE);
   struct song_node *n1 = malloc(SIZE);
+  struct song_node *newer = malloc(SIZE);
 
   strcpy( head -> name , "a" );
   strcpy( head ->artist , "bb");
   head -> next =  n1;
-  strcpy( n1 -> name , "ab" );
+  strcpy( n1 -> name , "ac" );
   strcpy( n1 -> artist , "bbc");
   n1 -> next = NULL;
+  strcpy(newer -> name, "ab");
+  strcpy(newer -> artist, "ab");
+  newer -> next = NULL;
 
   printf("---Testing print_list---\n");
   print_list(head);
@@ -130,6 +147,9 @@ int main(){
   printf("%d\n", length(head));
   print_list(head);
 
+  printf("---Testing order_alpha---\n");
+  printf("After adding node in order: \n");
+  print_list(order_alpha(newer, head));
+
   return 0;
 }
-
