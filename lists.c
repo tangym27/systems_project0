@@ -94,37 +94,6 @@ struct song_node * remove (struct song_node *n, char * name, char * artist ){
 }
 
   
-  
-  
-/* // remove a single specified node from the list */
-/* struct song_node * remove_node(struct song_node *node_pointer, char * song, char * artist){ */
-
-/*   while (current_pointer != NULL){ */
-/*     // search for a matching node */
-/*     if(strcmp(current_pointer -> song, song) == 0 && strcmp(current_pointer -> artist, artist) == 0) { */
-/*       // if the first node is being removed */
-/*       if (previous_pointer == NULL) { */
-/*         free(current_pointer); */
-/*         return node_pointer -> next; */
-/*       } */
-/*       // if the last node is being removed */
-/*       if (!current_pointer -> next){ */
-/*         previous_pointer -> next = NULL; */
-/*         free(current_pointer); */
-/*         return node_pointer; */
-/*       } */
-/*       // general case */
-/*       previous_pointer -> next = current_pointer -> next; */
-/*       free(current_pointer); */
-/*       return node_pointer; */
-/*     } */
-/*     previous_pointer = current_pointer; */
-/*     current_pointer = current_pointer -> next; */
-/*   } */
-/*   return node_pointer; */
-/* } */
-// struct song_node * insert_order(struct song_node *n, char name[100], char artist[100]){
-//   struct song_node *node = malloc(SIZE);
 
   
 
