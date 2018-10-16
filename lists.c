@@ -16,7 +16,7 @@ int SIZE = sizeof(struct song_node);
 void print_list(struct song_node *n){
   int i = 0;
   struct song_node * node = n;
-  printf("Node #: i, next node\n");
+  //printf("Node #: i, next node\n");
   while (node){
     printf("Node %d: %s, %s -> \n", i, node->name, node->artist);
     node = node->next;
@@ -33,9 +33,56 @@ struct song_node * insert_front(struct song_node *n, char name[100], char artist
   return head;  
 }
 
-/* struct node * free_list(struct node *n) { */
-/*   struct node *holder = n; */
-/*   struct node *pos = n; */
+int length(struct song_node *n) {
+  int counter = 0;
+  while(n) {
+    counter++;
+    n = n -> next;
+  }
+  return counter;
+}
+
+struct song_node * find_node(struct song_node *n, char * name, char * artist){
+  while (n){
+    if(strcmp(n -> name, name) == 0 && strcmp(n -> artist, artist) == 0) {
+      return n;
+    }
+    n = n -> next;
+  }
+  return NULL;
+}
+
+struct song_node * find_song(struct song_node *n, char * artist) {
+  while (n){
+    if(strcmp(n -> artist, artist) == 0) {
+      return n;
+    }
+    n = n -> next;
+  }
+  return NULL;
+}
+
+
+// Return a pointer to random element in the list.
+struct song_node * random_node(struct song_node *n) {
+  int random_index = rand() % length(n);
+  int num = 0;
+//printf("num: %d\n", random_index);
+  while(n != NULL && num < random_index) {
+    n = n -> next;
+    num++;
+  }
+  return n;
+}
+
+// struct song_node * insert_order(struct song_node *n, char name[100], char artist[100]){
+//   struct song_node *node = malloc(SIZE);
+
+  
+
+/* struct node * free_list(struct song_node *n) { */
+/*   struct song_node *holder = n; */
+/*   struct song_node *pos = n; */
 /*   while(pos) { */
 /*     free(holder); */
 /*     pos = pos -> next; */
@@ -62,6 +109,8 @@ int main(){
   printf("---Testing insert_front---\n");
   printf("After adding node at the front: \n");
   print_list(insert_front(head, "HI", "THERE"));
+  printf("%d\n", length(head));
+  print_list(head);
 
   return 0;
 }
