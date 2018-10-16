@@ -97,9 +97,14 @@ struct song_node * order_alpha (struct song_node *add, struct song_node *begin){
   struct song_node *temp = begin;
   struct song_node *previous = NULL;
   printf("%d\n", (strcmp(add-> artist, temp-> artist)));
-  while (strcmp(add-> artist, temp-> artist) >0 && temp->next!=NULL){
+  while (strcmp(add-> artist, temp-> artist) >0 ){//&& temp->next!=NULL){
+    printf("%s\n", "ufbiufhelbfui" );
     previous = temp;
     temp = temp ->next;
+    if (temp->next==NULL){
+      temp = NULL;
+      break;
+    }
     }
   if  (strcmp(add->artist, temp->artist) ==0){
     while (strcmp(add->name, temp->name)>0){
@@ -107,15 +112,25 @@ struct song_node * order_alpha (struct song_node *add, struct song_node *begin){
       temp= temp ->next;
     }
   }
-  if (temp -> next != NULL){
-    previous->next = add;
-    add->next = temp;
-  }
+
+  //add is the 1st one
   if (previous == NULL){
+    printf("%s\n", "jkllllll");
     begin = insert_front(begin, add->artist, add ->name);
   }
-  else {
-    temp->next = add;
+  //add at end
+  else if (temp== NULL){
+    printf("%s\n", temp);
+    printf("%s\n","gggggggggggg" );
+    previous->next = add;
+  }
+
+  //if (temp -> next != NULL){
+  //add to middle
+  else{
+    printf("%s\n", "fjdnifieiii");
+    previous->next = add;
+    add->next = temp;
   }
   return begin;
 }
@@ -140,10 +155,10 @@ int main(){
   strcpy( head ->artist , "aa");
   head -> next =  n1;
   strcpy( n1 -> name , "c" );
-  strcpy( n1 -> artist , "cc");
+  strcpy( n1 -> artist , "dd");
   n1 -> next = NULL;
   strcpy(newer -> name, "d");
-  strcpy(newer -> artist, "dd");
+  strcpy(newer -> artist, "cc");
   newer -> next = NULL;
 
   printf("---Testing print_list---\n");
