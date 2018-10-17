@@ -10,7 +10,6 @@ struct song_node{
   struct song_node *next;
 };
 
-
 int SIZE = sizeof(struct song_node);
 
 void print_list(struct song_node *n){
@@ -25,13 +24,66 @@ void print_list(struct song_node *n){
   printf("[NULL]\n");
 }
 
-struct song_node * insert_front(struct song_node *n, char name[100], char artist[100]){
+struct song_node * insert_front(struct song_node *n, char * name, char * artist){
   struct song_node *head = malloc(SIZE);
   strcpy( head -> name , name );
   strcpy( head ->artist , artist);
   head -> next = n;
   return head;
 }
+
+
+int compare_song(struct song_node * one, struct song_node * two){
+  if(strcmp(one->artist, two->artist) < 0){
+    return -1;
+  }else if(strcmp(one->artist, two->artist) > 0){
+    return 1;
+  }else{
+    if(strcmp(one->name, two->name) < 0){
+      return -1;
+    }
+    else{
+      return 1;
+    }
+  }
+}
+
+struct song_node * insert_order( struct song_node * head, char * name, char * artist){
+  struct song_node * add = malloc(SIZE);
+  strcpy(add->name, name);
+  strcpy(add->artist, artist);
+
+  if(head == NULL || compare_song(add, head) < 0){
+    return insert_front(head, name, artist);
+  }else if((head->next) == NULL){ //at last node
+    if(compare_song(add, head) < 0){ //if the added song is before last one
+      return insert_front(head, name, artist);
+    }else{ // if it is the next node
+      head->next = add;
+      add->next = NULL;
+      return head;
+    }
+  }else{
+    
+    struct song_node * current = head;
+    printf("dlkfjasdfsdaasd\n");
+
+    while((current->next != NULL) && (compare_song(add, current->next) > 0)){ //while there is a next node and the song next to the current takes precedence,
+      printf("dlkfjasd\n");
+      current = current->next;
+    }
+    if(current->next){ //not null
+      add->next = current->next;
+      current->next = add;
+    }else{ //at the very end
+      current->next = add;
+      add->next = NULL;
+    }
+
+    return head;
+  }
+}
+
 
 int length(struct song_node *n) {
   int counter = 0;
@@ -74,66 +126,6 @@ struct song_node * random_node(struct song_node *n) {
   return n;
 }
 
-struct song_node * remove_node (struct song_node *n, char * name, char * artist ){
-  struct song_node * previous = NULL;
-  struct song_node * head = n;
-  while (n){
-    if (strcmp(n -> name, name) == 0 && strcmp (n -> artist, artist) == 0){
-      if (previous == NULL){ //first node
-	free(head);
-	return n -> next;
-      }
-      else if (n -> next == NULL){ //last node
-	previous -> next == NULL;
-	free (n);
-	return head;
-      }
-    }
-  }
-  return head;
-}
-
-struct song_node * order_alpha (struct song_node *add, struct song_node *begin){
-  struct song_node *temp = begin;
-  struct song_node *previous = NULL;
-  printf("%d\n", (strcmp(add-> artist, temp-> artist)));
-  while (strcmp(add-> artist, temp-> artist) >0 ){//&& temp->next!=NULL){
-    printf("%s\n", "ufbiufhelbfui" );
-    previous = temp;
-    temp = temp ->next;
-    if (temp->next==NULL){
-      temp = NULL;
-      break;
-    }
-    }
-  if  (strcmp(add->artist, temp->artist) ==0){
-    while (strcmp(add->name, temp->name)>0){
-      previous = temp;
-      temp= temp ->next;
-    }
-  }
-
-  //add is the 1st one
-  if (previous == NULL){
-    printf("%s\n", "jkllllll");
-    begin = insert_front(begin, add->artist, add ->name);
-  }
-  //add at end
-  else if (temp== NULL){
-    printf("%s\n", temp);
-    printf("%s\n","gggggggggggg" );
-    previous->next = add;
-  }
-
-  //if (temp -> next != NULL){
-  //add to middle
-  else{
-    printf("%s\n", "fjdnifieiii");
-    previous->next = add;
-    add->next = temp;
-  }
-  return begin;
-}
 /* struct node * free_list(struct song_node *n) { */
 /*   struct song_node *holder = n; */
 /*   struct song_node *pos = n; */
@@ -151,28 +143,22 @@ int main(){
   struct song_node *head = malloc(SIZE);
   struct song_node *n1 = malloc(SIZE);
   struct song_node *newer = malloc(SIZE);
-  strcpy( head -> name , "a" );
-  strcpy( head ->artist , "aa");
+  strcpy( head -> name , "c" );
+  strcpy( head ->artist , "bb");
   head -> next =  n1;
-  strcpy( n1 -> name , "c" );
+  strcpy( n1 -> name , "a" );
   strcpy( n1 -> artist , "dd");
   n1 -> next = NULL;
-  strcpy(newer -> name, "d");
-  strcpy(newer -> artist, "cc");
-  newer -> next = NULL;
+  // strcpy(newer -> name, "b");
+  // strcpy(newer -> artist, "bb");
+  // newer -> next = NULL;
 
   printf("---Testing print_list---\n");
   print_list(head);
 
-  printf("---Testing insert_front---\n");
-  printf("After adding node at the front: \n");
-  print_list(insert_front(head, "HI", "THERE"));
-  printf("%d\n", length(head));
-  print_list(head);
-
   printf("---Testing order_alpha---\n");
   printf("After adding node in order: \n");
-  print_list(order_alpha(newer, head));
+  print_list(insert_order(head, "a", "bb"));
 
   return 0;
 }
