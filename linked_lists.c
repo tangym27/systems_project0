@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-//struct node { int i; struct node *next; };
+#include "linked_lists.h"
 
 struct song_node{
   char name[100];
   char artist[100];
   struct song_node *next;
 };
-
-int SIZE = sizeof(struct song_node);
 
 void print_list(struct song_node *n){
   int i = 0;
@@ -24,7 +21,7 @@ void print_list(struct song_node *n){
   printf("[NULL]\n");
 }
 
-struct song_node * insert_front(struct song_node *n, char * name, char * artist){
+struct song_node * insert_front(struct song_node *n, char name[100], char artist[100]){
   struct song_node *head = malloc(SIZE);
   strcpy( head -> name , name );
   strcpy( head ->artist , artist);
@@ -48,7 +45,7 @@ int compare_song(struct song_node * one, struct song_node * two){
   }
 }
 
-struct song_node * insert_order( struct song_node * head, char * name, char * artist){
+struct song_node * insert_order( struct song_node * head, char name[100], char artist[100]){
   struct song_node * add = malloc(SIZE);
   strcpy(add->name, name);
   strcpy(add->artist, artist);
@@ -64,12 +61,10 @@ struct song_node * insert_order( struct song_node * head, char * name, char * ar
       return head;
     }
   }else{
-    
+
     struct song_node * current = head;
-    printf("dlkfjasdfsdaasd\n");
 
     while((current->next != NULL) && (compare_song(add, current->next) > 0)){ //while there is a next node and the song next to the current takes precedence,
-      printf("dlkfjasd\n");
       current = current->next;
     }
     if(current->next){ //not null
@@ -94,7 +89,7 @@ int length(struct song_node *n) {
   return counter;
 }
 
-struct song_node * find_node(struct song_node *n, char * name, char * artist){
+struct song_node * find_node(struct song_node *n, char name[100], char artist[100]){
   while (n){
     if(strcmp(n -> name, name) == 0 && strcmp(n -> artist, artist) == 0) {
       return n;
@@ -104,7 +99,7 @@ struct song_node * find_node(struct song_node *n, char * name, char * artist){
   return NULL;
 }
 
-struct song_node * find_song(struct song_node *n, char * artist) {
+struct song_node * find_song(struct song_node *n, char artist[100]) {
   while (n){
     if(strcmp(n -> artist, artist) == 0) {
       return n;
@@ -124,41 +119,4 @@ struct song_node * random_node(struct song_node *n) {
     num++;
   }
   return n;
-}
-
-/* struct node * free_list(struct song_node *n) { */
-/*   struct song_node *holder = n; */
-/*   struct song_node *pos = n; */
-/*   while(pos) { */
-/*     free(holder); */
-/*     pos = pos -> next; */
-/*     holder = pos; */
-/*   } */
-/*   return pos; */
-/* } */
-
-
-int main(){
-  // srand();
-  struct song_node *head = malloc(SIZE);
-  struct song_node *n1 = malloc(SIZE);
-  struct song_node *newer = malloc(SIZE);
-  strcpy( head -> name , "c" );
-  strcpy( head ->artist , "bb");
-  head -> next =  n1;
-  strcpy( n1 -> name , "a" );
-  strcpy( n1 -> artist , "dd");
-  n1 -> next = NULL;
-  // strcpy(newer -> name, "b");
-  // strcpy(newer -> artist, "bb");
-  // newer -> next = NULL;
-
-  printf("---Testing print_list---\n");
-  print_list(head);
-
-  printf("---Testing order_alpha---\n");
-  printf("After adding node in order: \n");
-  print_list(insert_order(head, "a", "bb"));
-
-  return 0;
 }
