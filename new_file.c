@@ -218,9 +218,20 @@ void entries_let(struct library *lib, char s){
   printf("%d\n", rem );
   print_list(lib->table[rem]);
 }
-void all_songs(struct library *lib, char artist[100]){
-  
+void all_songs(struct library *lib, char *artist){
+    int rem= get_ind(*artist);
+    struct song_node *temp = lib->table[rem];
+    while (temp){
+        if (!strcmp(artist, temp->artist)){
+            printf("%s\n",temp->name );
+            temp = temp->next;
+        } else {
+            break;
+        }
+    }
 }
+
+
 int main(){
   // srand();
   struct song_node *head = malloc(SIZE);
@@ -264,6 +275,10 @@ int main(){
 
   printf("---Testing entry finder---\n");
   entries_let(lib, 'A');
+  printf("---Testing all songs ---\n");
+  add_song(lib, "Warrior", "Demi Lovato");
+  all_songs(lib, "Demi Lovato");
+  print_lib(lib);
 
   return 0;
 }
