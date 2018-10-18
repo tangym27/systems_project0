@@ -119,14 +119,18 @@ struct song_node * find_song(struct song_node *n, char artist[100]) {
 
 // Return a pointer to random element in the list.
 struct song_node * random_node(struct song_node *n) {
-  int random_index = rand() % length(n);
-  int num = 0;
-  while(n != NULL && num < random_index) {
-    n = n -> next;
-    num++;
+  if (length(n) !=0){
+    int random_index = rand() % length(n);
+    int num = 0;
+    while(n != NULL && num < random_index) {
+      n = n -> next;
+      num++;
+    }
+    return n;
   }
-  return n;
+  return NULL;
 }
+
 
 /* struct node * free_list(struct song_node *n) { */
 /*   struct song_node *holder = n; */
@@ -176,8 +180,11 @@ int get_ind(char s){
   if (s >= 65 && s <= 90){
     rem = s-65;
   }
-  else{
+  else if (s>=97 && s<=122){
     rem = s-97;
+  }
+  else{
+    rem = 26;
   }
   return rem;
 }
@@ -231,9 +238,25 @@ void all_songs(struct library *lib, char *artist){
     }
 }
 
+void shuffle(struct library *lib){
+  int i = rand() % 26;
+  printf("%d\n", i);
+
+  print_list(lib->table[0]);
+  while( i>0){
+    if (lib->table != NULL)
+      print_list(random_node(lib->table[i]));
+    i--;
+  }
+}
+
+void remove_song(struct library *lib, char name ){
+
+}
 
 int main(){
   // srand();
+  srand(time(NULL));
   struct song_node *head = malloc(SIZE);
   struct song_node *n1 = malloc(SIZE);
   struct song_node *newer = malloc(SIZE);
@@ -279,6 +302,8 @@ int main(){
   add_song(lib, "Warrior", "Demi Lovato");
   all_songs(lib, "Demi Lovato");
   print_lib(lib);
+  printf("---Testing shuffle ---\n");
 
+  shuffle(lib);
   return 0;
 }
