@@ -14,6 +14,8 @@ struct song_node * insert_order( struct song_node * head, char name[100], char a
 int length(struct song_node *n);
 struct song_node * find_node(struct song_node *n, char name[100], char artist[100]);
 struct song_node * find_song(struct song_node *n, char artist[100]);
+struct song_node * remove_node (struct song_node *n, char * name, char * artist );
+struct song_node * free_list(struct song_node *n);
 struct song_node * random_node(struct song_node *n);
 
 

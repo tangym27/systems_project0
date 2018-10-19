@@ -108,7 +108,41 @@ struct song_node * find_song(struct song_node *n, char artist[100]) {
   }
   return NULL;
 }
+struct song_node * remove_node (struct song_node *n, char * name, char * artist ){
+  struct song_node * previous = NULL;
+  struct song_node * head = n;
+  struct song_node * current = n;
+  while (n){
+    if (strcmp(n -> name, name) == 0 && strcmp (n -> artist, artist) == 0){
+      if (previous == NULL){ //first node
+	     free(n);
+	     return head -> next;
+      }
+      else if (n -> next == NULL){ //last node
+	     previous -> next = NULL;
+	     free(n);
+	     return head;
+      }
+      free (n);
+      previous -> next = current -> next;
+      return head;
+    }
+    previous = n;
+    n = n -> next;
+    current = n;
+  }
+  return head;
+}
 
+
+struct song_node * free_list(struct song_node *n) {
+  while (n) {
+    struct song_node *holder = n->next;
+    free(n);
+    n = holder;
+  }
+  return n;
+}
 
 // Return a pointer to random element in the list.
 struct song_node * random_node(struct song_node *n) {

@@ -144,13 +144,14 @@ struct song_node * remove_node (struct song_node *n, char * name, char * artist 
 
 
 struct song_node * free_list(struct song_node *n) {
-  while (n) {
+   while (n) {
     struct song_node *holder = n->next;
-    free(n);
-    n = holder;
-  }
-  return n;
-}
+     free(n);
+     n = holder;
+ }
+   return n;
+ }
+
 
 // Return a pointer to random element in the list.
 struct song_node * random_node(struct song_node *n) {
@@ -285,8 +286,22 @@ void shuffle(struct library *lib){
   }
 }
 
-void remove_song(struct library *lib, char name ){
+  // int i = 0;
+  // while (!find_song(lib->table[i], lib->table[i]->artist)){
+  //       i ++;
+  // }
+  // remove_node(find_node(lib->table[i], name, lib->table[i]->artist ),name, lib->table[i]->artist);
+  // print_lib(lib);
+void remove_song(struct library *lib, char name[], char artist[]){
+    int i = get_ind(*artist);
+    lib->table[i] = remove_node(lib->table[i], name, artist);
+}
 
+void free_library(struct library *lib){
+    for(int i = 0; i < 27; i++){
+        free_list(lib->table[i]);
+    }
+    free(lib);
 }
 
 int main(){
@@ -322,7 +337,8 @@ int main(){
   // for (int i=0; i<26; i++){
   //   print_list(table[i]);
   // }
-  print_lib(lib);
+  print_list(head);
+  //print_lib(lib);
   printf("---Testing find node libb---\n");
   print_list(search_lib(lib, "Stone Cold ", "Demi Lovato"));
   print_list(search_lib(lib, "hello", "ADELE"));
@@ -338,7 +354,13 @@ int main(){
   all_songs(lib, "Demi Lovato");
   print_lib(lib);
   printf("---Testing shuffle ---\n");
-
   shuffle(lib);
+  printf("---Removed hello ---\n");
+
+  remove_song(lib, "hello", "ADELE");
+  print_lib(lib);
+  printf("%s\n","free" );
+  free_library(lib);
+  print_lib(lib);
   return 0;
 }
