@@ -86,48 +86,61 @@ int main(){
 
   printf("-------------------------------------\n");
   printf("-------------------------------------\n");
-  printf("| TESTING OUT LIBRARY FUNCTIONS |\n");
+  printf("| TESTING OUT LIBRARY FUNCTIONS     |\n");
   printf("-------------------------------------\n");
   printf("-------------------------------------\n");
 
-  // printf("---Testing order_alpha---\n");
-  // printf("After adding node in order: \n");
-  // print_list(insert_order(head, "a", "bb"));
-  //
-  // printf("---Testing add song nodes---\n");
-  // add_song(lib, "hello", "ADELE");
-  // add_song(lib, "Stone Cold ", "Demi Lovato");
-  // add_song(lib, "NonStop", "Drake");
-  // //print_list(head);
-  // //printf("%s\n\n\n\n\n", "BUHURILUFJRLUHFRIUHFLIURHFIURH");
-  // //free_list(head);
-  // //print_list(head);
-  // //print_lib(lib);
-  // struct library *lib = calloc(1, sizeof(struct library));
-  //
-  // printf("---Testing find node libb---\n");
-  // print_list(search_lib(lib, "Stone Cold ", "Demi Lovato"));
-  // print_list(search_lib(lib, "hello", "ADELE"));
-  //
-  // printf("---Testing find song libb---\n");
-  // print_list(search_lib_art(lib, "Demi Lovato"));
-  // print_list(search_lib_art(lib, "ADELE"));
-  //
-  // printf("---Testing entry finder---\n");
-  // entries_let(lib, 'A');
-  // printf("---Testing all songs ---\n");
-  // add_song(lib, "Warrior", "Demi Lovato");
-  // all_songs(lib, "Demi Lovato");
-  // print_lib(lib);
-  // printf("---Testing shuffle ---\n");
-  // shuffle(lib);
-  // printf("---Removed hello ---\n");
-  //
-  // remove_song(lib, "hello", "ADELE");
-  // print_lib(lib);
-  //printf("%s\n","free" );
-  //free_library(lib);
-  //print_lib(lib);
+  struct library *lib = calloc(1, sizeof(struct library));
+  add_song(lib, "Hello", "Adele");
+  add_song(lib, "Heart Attack ", "Demi Lovato");
+  add_song(lib, "Stone Cold ", "Demi Lovato");
+  add_song(lib, "Warrior", "Demi Lovato");
+
+  add_song(lib, "NonStop", "Drake");
+  add_song(lib, "Material Girl ", "Madonna");
+  add_song(lib, "Stressed Out", "Michelle & Shafali");
+  add_song(lib, "Getaway Car", "Taylor Swift");
+
+  printf("---Testing out print_lib\n" );
+  print_lib(lib);
+
+  printf("---Testing find node lib---\n");
+  printf("Looking for [Stone Cold, Demi Lovato] (there)\n");
+  print_song(search_lib(lib, "Stone Cold ", "Demi Lovato"));
+  printf("Looking for [Not Stone Cold, Demi Lovato] (not there)\n");
+  print_song(search_lib(lib, "Not Stone Cold", "Demi Lovato"));
+
+  printf("---Testing find song lib---\n");
+  printf("Find Demi Lovato (exists), print out the list she is in)\n");
+  print_list(search_lib_art(lib, "Demi Lovato"));
+  printf("Find Not Demi Lovato (does not exist), print out the lit she is in)\n");
+  print_list(search_lib_art(lib, "Not Demi Lovato"));
+
+  printf("---Testing entry finder---\n");
+  printf("Find all entries 'A'\n");
+  entries_let(lib, 'A');
+  printf("Find all entries 'M'\n");
+  entries_let(lib, 'M');
+
+  printf("---Testing all songs ---\n");
+  printf("Get all songs from Demi Lovato\n");
+  all_songs(lib, "Demi Lovato");
+
+
+  printf("---Testing shuffle ---\n");
+  shuffle(lib);
+
+  printf("---Testing remove---\n");
+  printf("Removed [Hello, Adele] (there)\n");
+  remove_song(lib, "Hello", "Adele");
+  printf("Removed [Goodbye, Adele] (not there)\n");
+  remove_song(lib, "Goodbye", "Adele");
+  print_lib(lib);
+
+  printf("---Testing free---\n" );
+  free_library(lib);
+  print_lib(lib);
+
   return 0;
 }
 //hi

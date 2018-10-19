@@ -17,8 +17,7 @@ void entries_let(struct library *lib, char s);
 void all_songs(struct library *lib, char *artist);
 void shuffle(struct library *lib);
 void remove_song(struct library *lib, char name[], char artist[]);
-void free_library(struct library *lib);
-
+struct song_node * free_library(struct library *lib);
 
 
 #endif

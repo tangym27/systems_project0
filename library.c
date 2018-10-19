@@ -7,10 +7,12 @@
 
 //print library
 void print_lib(struct library *lib){
-  for (int i=0; i<26; i++){
+  int i = 0;
+  for (; i<26; i++){
     print_list(lib->table[i]);
   }
 }
+
 
 //get index for the first letter (usually artist)
 int get_ind(char s){
@@ -43,7 +45,9 @@ struct song_node * search_lib(struct library *lib, char name[100], char artist[1
   rem = get_ind(artist[0]);
   return find_node(lib->table[rem], name, artist);
 }
-//returns pointer to node after searching by artist
+
+//returns pointer to node after searching by artist, returns list artist belongs in
+// also see all_songs
 struct song_node * search_lib_art(struct library *lib, char artist[100]){
   int rem = 0;
   rem = get_ind(artist[0]);
@@ -53,7 +57,6 @@ struct song_node * search_lib_art(struct library *lib, char artist[100]){
 //prints entries under certain letter
 void entries_let(struct library *lib, char s){
   int rem = get_ind(s);
-  //printf("%d\n", rem );
   print_list(lib->table[rem]);
 }
 
@@ -71,17 +74,14 @@ void all_songs(struct library *lib, char *artist){
     }
 }
 
-//prints random list of nodes
-void shuffle(struct library *lib){
-  int i = rand() % 26;
-  printf("%d\n", i);
-
-  print_list(lib->table[0]);
-  while( i>0){
-    if (lib->table)
-      print_list(random_node(lib->table[i]));
-    i--;
-  }
+// print out a series of randomly chosen songs.
+void shuffle(struct library *lib) {
+    for(int i = 0; i < 26; i++) {
+        int n = rand() % 27;
+        if(lib->table[n]) {
+            print_list(random_node(lib->table[n]));
+        }
+    }
 }
 
 //removes song
@@ -90,10 +90,11 @@ void remove_song(struct library *lib, char name[], char artist[]){
     lib->table[i] = remove_node(lib->table[i], name, artist);
 }
 
-//free library 
-void free_library(struct library *lib){
-    for(int i = 0; i < 27; i++){
-        free_list(lib->table[i]);
-    }
-    free(lib);
+//free library
+struct song_node * free_library(struct library *lib){
+  int i = 0;
+  for(; i < 27; i++){
+      lib->table[i] = free_list((lib->table)[i]);
+  }
+  return NULL;
 }
