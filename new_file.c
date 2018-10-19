@@ -337,7 +337,11 @@ int main(){
   // for (int i=0; i<26; i++){
   //   print_list(table[i]);
   // }
+
   print_list(head);
+  printf("%s\n\n\n\n\n", "BUHURILUFJRLUHFRIUHFLIURHFIURH");
+  free_list(head);
+  print_list(head); 
   //print_lib(lib);
   printf("---Testing find node libb---\n");
   print_list(search_lib(lib, "Stone Cold ", "Demi Lovato"));
