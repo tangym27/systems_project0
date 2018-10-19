@@ -73,13 +73,13 @@ void all_songs(struct library *lib, char *artist){
         }
     }
 }
-
+//
 // print out a series of randomly chosen songs.
 void shuffle(struct library *lib) {
     for(int i = 0; i < 26; i++) {
-        int n = rand() % 27;
+        int n = rand() % 26;
         if(lib->table[n]) {
-            print_list(random_node(lib->table[n]));
+            print_song(random_node(lib->table[n]));
         }
     }
 }

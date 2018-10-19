@@ -101,43 +101,43 @@ int main(){
   add_song(lib, "Stressed Out", "Michelle & Shafali");
   add_song(lib, "Getaway Car", "Taylor Swift");
 
-  printf("---Testing out print_lib\n" );
+  printf("\n---Testing out print_lib---\n" );
   print_lib(lib);
 
-  printf("---Testing find node lib---\n");
+  printf("\n---Testing find node lib---\n");
   printf("Looking for [Stone Cold, Demi Lovato] (there)\n");
   print_song(search_lib(lib, "Stone Cold ", "Demi Lovato"));
   printf("Looking for [Not Stone Cold, Demi Lovato] (not there)\n");
   print_song(search_lib(lib, "Not Stone Cold", "Demi Lovato"));
 
-  printf("---Testing find song lib---\n");
+  printf("\n---Testing find song lib---\n");
   printf("Find Demi Lovato (exists), print out the list she is in)\n");
   print_list(search_lib_art(lib, "Demi Lovato"));
   printf("Find Not Demi Lovato (does not exist), print out the lit she is in)\n");
   print_list(search_lib_art(lib, "Not Demi Lovato"));
 
-  printf("---Testing entry finder---\n");
+  printf("\n---Testing entry finder---\n");
   printf("Find all entries 'A'\n");
   entries_let(lib, 'A');
   printf("Find all entries 'M'\n");
   entries_let(lib, 'M');
 
-  printf("---Testing all songs ---\n");
+  printf("\n---Testing all songs ---\n");
   printf("Get all songs from Demi Lovato\n");
   all_songs(lib, "Demi Lovato");
 
 
-  printf("---Testing shuffle ---\n");
+  printf("\n---Testing shuffle ---\n");
   shuffle(lib);
 
-  printf("---Testing remove---\n");
+  printf("\n---Testing remove---\n");
   printf("Removed [Hello, Adele] (there)\n");
   remove_song(lib, "Hello", "Adele");
   printf("Removed [Goodbye, Adele] (not there)\n");
   remove_song(lib, "Goodbye", "Adele");
   print_lib(lib);
 
-  printf("---Testing free---\n" );
+  printf("\n---Testing free---\n" );
   free_library(lib);
   print_lib(lib);
 
