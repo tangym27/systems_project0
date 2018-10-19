@@ -10,7 +10,7 @@ void print_list(struct song_node *n){
   struct song_node * node = n;
   //printf("Node #: i, next node\n");
   while (node){
-    printf("Node %d: %s, %s -> \n", i, node->name, node->artist);
+    printf("Node %d: %s, %s -> ", i, node->name, node->artist);
     node = node->next;
     i++;
   }

@@ -14,5 +14,4 @@ run:
 	./out
 
 clean:
-	rm out
-	rm *.o
+	rm -f *.out* ~ *.o
