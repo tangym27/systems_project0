@@ -8,6 +8,8 @@ struct song_node {
 };
 
 void print_list(struct song_node *n);
+void print_song(struct song_node *n);
+
 struct song_node * insert_front(struct song_node *n, char name[100], char artist[100]);
 int compare_song(struct song_node * one, struct song_node * two);
 struct song_node * insert_order( struct song_node * head, char name[100], char artist[100]);
