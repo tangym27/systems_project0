@@ -1,3 +1,11 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include "linked_lists.h"
+#include "library.h"
+
+
 void print_lib(struct library *lib){
   for (int i=0; i<26; i++){
     print_list(lib->table[i]);
@@ -62,7 +70,7 @@ struct song_node * search_lib_art(struct library *lib, char artist[100]){
 
 void entries_let(struct library *lib, char s){
   int rem = get_ind(s);
-  printf("%d\n", rem );
+  //printf("%d\n", rem );
   print_list(lib->table[rem]);
 }
 void all_songs(struct library *lib, char *artist){
@@ -90,11 +98,20 @@ void shuffle(struct library *lib){
   }
 }
 
-void remove_song(struct library *lib, char * name){
-  int i = 0;
-  print_list(find_song(lib->table[i], name));
-  while (!find_song(lib->table[i], name)){
-    i ++;
-    printf("%s\n","ifijeoif" );}
-  remove_node(find_song(lib->table[i],name),name, lib->table[i]->artist);
+  // int i = 0;
+  // while (!find_song(lib->table[i], lib->table[i]->artist)){
+  //       i ++;
+  // }
+  // remove_node(find_node(lib->table[i], name, lib->table[i]->artist ),name, lib->table[i]->artist);
+  // print_lib(lib);
+void remove_song(struct library *lib, char name[], char artist[]){
+    int i = get_ind(*artist);
+    lib->table[i] = remove_node(lib->table[i], name, artist);
+}
+
+void free_library(struct library *lib){
+    for(int i = 0; i < 27; i++){
+        free_list(lib->table[i]);
+    }
+    free(lib);
 }

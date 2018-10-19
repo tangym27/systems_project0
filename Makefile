@@ -1,15 +1,18 @@
-all:	lists.o testLists.o 
-	gcc -o test testLists.o lists.o
+all: driver.o library.o linked_lists.o
+	gcc -o out driver.o library.o linked_lists.o
 
-lists.o: lists.c
-	gcc -c lists.c
+driver.o: driver.c library.h linked_lists.h
+	gcc -c driver.c
 
-testLists.o: testLists.c lists.h
-	gcc -c testLists.c
+library.o: library.c linked_lists.h
+	gcc -c library.c
+
+linked_list.o: linked_lists.c
+	gcc -c linked_lists.c
 
 run:
-	./test
+	./out
 
 clean:
-	rm test
+	rm out
 	rm *.o

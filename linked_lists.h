@@ -6,7 +6,7 @@ struct song_node {
  	char artist[100];
  	struct song_node *next;
 };
-int SIZE = sizeof(struct song_node);
+
 void print_list(struct song_node *n);
 struct song_node * insert_front(struct song_node *n, char name[100], char artist[100]);
 int compare_song(struct song_node * one, struct song_node * two);

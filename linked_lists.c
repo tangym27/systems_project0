@@ -3,11 +3,7 @@
 #include <string.h>
 #include "linked_lists.h"
 
-struct song_node{
-  char name[100];
-  char artist[100];
-  struct song_node *next;
-};
+int SIZE = sizeof(struct song_node);
 
 void print_list(struct song_node *n){
   int i = 0;
